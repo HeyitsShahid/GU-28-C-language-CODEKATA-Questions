@@ -1,62 +1,28 @@
 #include <stdio.h>
-#include <string.h>
 
-typedef struct {
-    float balance;
-    float interestRate;
-} Savings;
+#define DEBUG  // Define DEBUG to enable debug messages
 
-typedef struct {
-    float balance;
-    float overdraftLimit;
-} Checking;
-
-typedef union {
-    Savings savings;
-    Checking checking;
-} AccountDetails;
-
-typedef struct {
-    char accountHolderName[50];
-    int accountType;  // 1 for Savings, 2 for Checking
-    AccountDetails details;
-} BankAccount;
-
-void displayAccount(BankAccount account) {
-    if (account.accountType == 1) {
-        printf("Savings Account Balance: %.2f\n", account.details.savings.balance);
-        printf("Annual Interest Rate: %.2f%%\n", account.details.savings.interestRate);
-    } else if (account.accountType == 2) {
-        printf("Checking Account Balance: %.2f\n", account.details.checking.balance);
-        printf("Overdraft Limit: %.2f\n", account.details.checking.overdraftLimit);
-    } else {
-        printf("Invalid account type.\n");
-    }
-}
+#ifdef DEBUG
+    #define DEBUG_PRINT(msg, value) printf("Debug: " msg " %d\n", value)
+#else
+    #define DEBUG_PRINT(msg, value)
+#endif
 
 int main() {
-    BankAccount account;
+    int num;
 
-    // Input for account holder's name
-    fgets(account.accountHolderName, sizeof(account.accountHolderName), stdin);
-    account.accountHolderName[strcspn(account.accountHolderName, "\n")] = '\0';  // Remove newline
+    // Read an integer from standard input
+    scanf("%d", &num);
 
-    // Input for account type
-    scanf("%d", &account.accountType);
+    // Debug message for input value
+    DEBUG_PRINT("Input value is", num);
 
-    // Input details based on account type
-    if (account.accountType == 1) {
-        // Savings Account
-        scanf("%f %f", &account.details.savings.balance, &account.details.savings.interestRate);
-    } else if (account.accountType == 2) {
-        // Checking Account
-        scanf("%f %f", &account.details.checking.balance, &account.details.checking.overdraftLimit);
+    // Check if the number is even or odd
+    if (num % 2 == 0) {
+        printf("The number is even\n");
     } else {
-        printf("Invalid account type.\n");
-        return 1;
+        printf("The number is odd\n");
     }
 
-    displayAccount(account);
-
     return 0;
-
+}
