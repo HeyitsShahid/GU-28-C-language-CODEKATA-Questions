@@ -1,3 +1,4 @@
+// Let's code Shahid
 #include <stdio.h>
 
 typedef struct {
@@ -73,4 +74,4 @@ int main() {
     printf("Count greater than %d: %d\n", threshold, result.countGreaterThanThreshold);
 
     return 0;
-
+}
